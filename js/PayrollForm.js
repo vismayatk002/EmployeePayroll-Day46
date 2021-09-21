@@ -9,6 +9,7 @@ class Employee{
     salary;
     startDate;
     notes;
+    id;
 
     set empName(empName){
         this.empName = empName;
@@ -30,6 +31,9 @@ class Employee{
     }
     set notes(notes){
         this.notes = notes;
+    }
+    set id(id){
+        this.id = id;
     }
 }
 

@@ -1,4 +1,31 @@
 //UC9
+window.addEventListener('DOMContentLoaded', (event) => {
+    let empId = localStorage.getItem("EditId");
+    if(empId){
+        localStorage.removeItem("EditId");
+        let empPayrollList = JSON.parse(localStorage.getItem("EmpPayrollList"));
+        let editEmpObj = empPayrollList.find(employee => employee.id == empId);
+        if(!editEmpObj){
+            window.location.href = "PayrollApp.html";
+        }
+        setFormValue(editEmpObj);
+    }
+});
+
+function setFormValue(editEmpObj){
+    document.querySelector('#name').value = editEmpObj.empName;
+    document.querySelector("input[name='profile']:checked").value = editEmpObj.profileImg;
+    document.querySelector("input[name='gender']:checked").value = editEmpObj.gender;
+    document.querySelectorAll("input[type='checkbox']:checked").value = editEmpObj.dept;
+    document.querySelector('#salary').value = editEmpObj.salary;
+
+    let date = editEmpObj.startDate;
+    let dateList = date.split('-');
+    document.querySelector('#day').value = dateList[2];
+    document.querySelector('#month').value = dateList[1];
+    document.querySelector('#year').value = dateList[0];
+    document.querySelector('#notes').value = editPersonObj.notes;
+}
 
 class Employee{
 
@@ -115,6 +142,7 @@ function onSubmit(){
 
         empObj.salary = salary.value;
 
+        empObj.id = new Date().getTime();
         saveData(empObj);
         formReset();
 

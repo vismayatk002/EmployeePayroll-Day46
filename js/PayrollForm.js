@@ -14,17 +14,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 function setFormValue(editEmpObj){
     document.querySelector('#name').value = editEmpObj.empName;
-    document.querySelector("input[name='profile']:checked").value = editEmpObj.profileImg;
-    document.querySelector("input[name='gender']:checked").value = editEmpObj.gender;
-    document.querySelectorAll("input[type='checkbox']:checked").value = editEmpObj.dept;
+    document.querySelector("input[name='profile'][value='"+editEmpObj.profileImg+"']").checked = true;
+    document.querySelector("input[name='gender'][value='"+editEmpObj.gender+"']").checked = true;
     document.querySelector('#salary').value = editEmpObj.salary;
+    document.querySelector('.salary-output').textContent = editEmpObj.salary;
 
     let date = editEmpObj.startDate;
     let dateList = date.split('-');
     document.querySelector('#day').value = dateList[2];
     document.querySelector('#month').value = dateList[1];
     document.querySelector('#year').value = dateList[0];
-    document.querySelector('#notes').value = editPersonObj.notes;
+    document.querySelector('#notes').value = editEmpObj.notes;
 }
 
 class Employee{

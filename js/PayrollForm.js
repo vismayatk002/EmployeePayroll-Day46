@@ -25,6 +25,20 @@ function setFormValue(editEmpObj){
     document.querySelector('#month').value = dateList[1];
     document.querySelector('#year').value = dateList[0];
     document.querySelector('#notes').value = editEmpObj.notes;
+    document.querySelector('#empId').value = editEmpObj.id;
+}
+
+const remove = (id) => {
+    let empPayrollList = JSON.parse(localStorage.getItem("EmpPayrollList"));
+    let removeEmpObj = empPayrollList.find(employee => employee.id == id);
+    if(!removeEmpObj){
+        return;
+    }
+    const index = empPayrollList
+                .map(employee => employee.id)
+                .indexOf(removeEmpObj.id);       
+    empPayrollList.splice(index,1);
+    localStorage.setItem("EmpPayrollList", JSON.stringify(empPayrollList));
 }
 
 class Employee{
@@ -142,9 +156,17 @@ function onSubmit(){
 
         empObj.salary = salary.value;
 
-        empObj.id = new Date().getTime();
-        saveData(empObj);
-        formReset();
+        const resultId = document.querySelector('#empId').value;
+        if(resultId == ''){
+            empObj.id = new Date().getTime();
+            saveData(empObj);
+            formReset();
+        }
+        else{
+            remove(resultId);
+            empObj.id = resultId;
+            saveData(empObj);
+        }
 
     }catch(e){
         alert(e);
